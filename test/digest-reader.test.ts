@@ -35,6 +35,8 @@ describe('readNight', () => {
       counts: { ok: 0, retry: 0, fail: 0 } });
     expect(readNight(dir, '2026-10-29').exists).toBe(false);
     expect(readNight(dir, '../2026-10-28').exists).toBe(false);
+    writeFileSync(join(dir, '2026-02-30.jsonl'), '');
+    expect(readNight(dir, '2026-02-30').exists).toBe(false);
   });
 
   it('counts malformed JSON and invalid records while continuing through CRLF logs', () => {

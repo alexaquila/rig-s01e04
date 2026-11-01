@@ -20,6 +20,8 @@ export const readNight: ReadNight = (runsDir, night) => {
   const result: NightDigest = { exists: false, rows: [], badLines: 0, counts: { ok: 0, retry: 0, fail: 0 } };
   // Route parameters must never escape the runs directory.
   if (!/^\d{4}-\d{2}-\d{2}$/.test(night)) return result;
+  const date = new Date(`${night}T00:00:00Z`);
+  if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== night) return result;
   let contents: string;
   try {
     contents = readFileSync(join(runsDir, `${night}.jsonl`), 'utf8');

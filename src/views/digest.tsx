@@ -1,9 +1,10 @@
 import type { DigestRow } from '../digest/types.js';
 
-export function DigestPage({ night, rows }: { night: string; rows: DigestRow[] }) {
+export function DigestPage({ night, rows, badLines }: { night: string; rows: DigestRow[]; badLines: number }) {
   return (
     <>
       <h1>digest · {night}</h1>
+      {badLines > 0 && <p class="warn">{badLines} bad {badLines === 1 ? 'line' : 'lines'}</p>}
       {rows.length === 0 ? (
         <p class="mute">nothing ran</p>
       ) : (
@@ -21,7 +22,7 @@ export function DigestPage({ night, rows }: { night: string; rows: DigestRow[] }
             </tr>
           </thead>
           <tbody>
-            {[...rows].sort((a, b) => a.job < b.job ? -1 : a.job > b.job ? 1 : 0).map((row) => (
+            {rows.map((row) => (
               <tr>
                 <td>{row.job}</td>
                 <td>{row.owner ?? '—'}</td>

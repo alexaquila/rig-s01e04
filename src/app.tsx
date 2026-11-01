@@ -40,7 +40,7 @@ export function createApp(config: RigConfig = loadConfig()) {
 
     return c.html(
       <Layout title={`digest · ${night}`} lane={lane()}>
-        <DigestPage night={night} rows={digest.rows} />
+        <DigestPage night={night} rows={digest.rows} badLines={digest.badLines} />
       </Layout>,
     );
   });
